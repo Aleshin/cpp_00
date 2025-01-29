@@ -1,17 +1,17 @@
 #include <iostream>
 #include <cctype>
+#include <string>
 
 // Function to convert string to uppercase
-std::string toUpperCase(const std::string& str)
+std::string toUpperCase(std::string str)
 {
-    std::string result;
     size_t i = 0;
     while (i < str.length())
     {
-        result += std::toupper(str[i]);
+        str[i] = std::toupper(str[i]);
         ++i;
     }
-    return result;
+    return str;
 }
 
 int main(int argc, char **argv)
@@ -24,12 +24,7 @@ int main(int argc, char **argv)
     } else
     {
         while (i < argc)
-        {
-            std::cout << toUpperCase(argv[i]);
-            if (i < argc - 1)
-                std::cout << " "; // Separate words with space
-            ++i;
-        }
+            std::cout << toUpperCase(argv[i++]);
         std::cout << std::endl;
     }
     return 0;
