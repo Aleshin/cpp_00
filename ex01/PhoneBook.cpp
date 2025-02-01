@@ -4,15 +4,18 @@
 
 PhoneBook::PhoneBook() : contactCount(0), oldestIndex(0) {}
 
-void PhoneBook::addContact() {
+int PhoneBook::addContact() {
     if (contactCount < MAX_CONTACTS) {
-        contacts[contactCount].setContact();
+        if (contacts[contactCount].setContact())
+            return 1;
         contactCount++;
     } else {
-        contacts[oldestIndex].setContact();
+        if (contacts[oldestIndex].setContact())
+            return 1;
         oldestIndex = (oldestIndex + 1) % MAX_CONTACTS;
     }
     std::cout << "Contact added successfully!" << std::endl;
+    return 0;
 }
 
 void PhoneBook::searchContacts() const {

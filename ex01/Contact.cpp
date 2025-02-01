@@ -1,17 +1,35 @@
 #include "Contact.hpp"
+#include <iostream>
 #include <iomanip>
 
-void Contact::setContact() {
-    std::cout << "Enter first name: ";
-    std::getline(std::cin, firstName);
-    std::cout << "Enter last name: ";
-    std::getline(std::cin, lastName);
-    std::cout << "Enter nickname: ";
-    std::getline(std::cin, nickname);
-    std::cout << "Enter phone number: ";
-    std::getline(std::cin, phoneNumber);
-    std::cout << "Enter darkest secret: ";
-    std::getline(std::cin, darkestSecret);
+// Function to get valid input and ensure the field is not empty
+int getValidInput(const std::string& prompt, std::string& field) {
+    do {
+        std::cout << prompt;
+        std::getline(std::cin, field);
+
+        // Check for EOF (Ctrl+D) to prevent input freeze
+        if (std::cin.eof()) {
+            std::cout << "EOF detected. Exiting input mode.\n";
+            std::cin.clear();  // Reset EOF flag
+            return 1;
+        }
+
+        if (field.empty()) {
+            std::cout << "Field cannot be empty. Please try again.\n";
+        }
+    } while (field.empty());
+    return 0;
+}
+
+int Contact::setContact() {
+    if (getValidInput("Enter first name: ", firstName))
+        return 1;
+    getValidInput("Enter last name: ", lastName);
+    getValidInput("Enter nickname: ", nickname);
+    getValidInput("Enter phone number: ", phoneNumber);
+    getValidInput("Enter darkest secret: ", darkestSecret);
+    return 0;
 }
 
 void Contact::displaySummary(int index) const {
