@@ -3,32 +3,33 @@
 #include <iomanip>
 
 // Function to get valid input and ensure the field is not empty
-int getValidInput(const std::string& prompt, std::string& field) {
+int getValidInput(const std::string &prompt, std::string &field) {
     do {
         std::cout << prompt;
         std::getline(std::cin, field);
 
         // Check for EOF (Ctrl+D) to prevent input freeze
         if (std::cin.eof()) {
-            std::cout << "EOF detected. Exiting input mode.\n";
-            std::cin.clear();  // Reset EOF flag
+            std::cout << "EOF detected. Exiting input mode." << std::endl;
+//            std::cin.clear();  // Reset EOF flag
+//            std::cin.ignore();
             return 1;
         }
 
         if (field.empty()) {
-            std::cout << "Field cannot be empty. Please try again.\n";
+            std::cout << "Field cannot be empty. Please try again." << std::endl;
         }
     } while (field.empty());
     return 0;
 }
 
 int Contact::setContact() {
-    if (getValidInput("Enter first name: ", firstName))
+    if (getValidInput("Enter first name: ", firstName) ||
+            getValidInput("Enter last name: ", lastName) ||
+            getValidInput("Enter nickname: ", nickname) ||
+            getValidInput("Enter phone number: ", phoneNumber) ||
+            getValidInput("Enter darkest secret: ", darkestSecret))
         return 1;
-    getValidInput("Enter last name: ", lastName);
-    getValidInput("Enter nickname: ", nickname);
-    getValidInput("Enter phone number: ", phoneNumber);
-    getValidInput("Enter darkest secret: ", darkestSecret);
     return 0;
 }
 
