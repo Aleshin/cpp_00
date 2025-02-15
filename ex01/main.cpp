@@ -10,13 +10,14 @@ int main() {
         std::cout << "Enter command (ADD, SEARCH, EXIT): ";
         std::getline(std::cin, command);
         if (std::cin.eof()) {
-            std::cout << "EOF detected. Exiting program." << std::endl;
             break;
         } else {
         if (command == "ADD") {
-            phoneBook.addContact();
+            if (phoneBook.addContact())
+                return 1;
         } else if (command == "SEARCH") {
-            phoneBook.searchContacts();
+            if (phoneBook.searchContacts())
+                return 1;
         } else if (command == "EXIT") {
             break;
         } else {

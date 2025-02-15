@@ -1,6 +1,7 @@
 #include "Contact.hpp"
 #include <iostream>
 #include <iomanip>
+#include <limits>
 
 // Function to get valid input and ensure the field is not empty
 int getValidInput(const std::string &prompt, std::string &field) {
@@ -9,12 +10,8 @@ int getValidInput(const std::string &prompt, std::string &field) {
         std::getline(std::cin, field);
 
         // Check for EOF (Ctrl+D) to prevent input freeze
-        if (std::cin.eof()) {
-            std::cout << "EOF detected. Exiting input mode." << std::endl;
-//            std::cin.clear();  // Reset EOF flag
-//            std::cin.ignore();
+        if (std::cin.eof())
             return 1;
-        }
 
         if (field.empty()) {
             std::cout << "Field cannot be empty. Please try again." << std::endl;
